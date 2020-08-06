@@ -7,6 +7,8 @@ package com.akhadam.kitabi.service;
 
 import com.akhadam.kitabi.dto.UserDto;
 import java.util.List;
+
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 /**
@@ -15,11 +17,11 @@ import org.springframework.stereotype.Service;
  */
 
 @Service
-public interface UserService {
+public interface UserService extends UserDetailsService {
     
     UserDto createUser(UserDto userDto);
 
-    UserDto getUser(String email);
+    UserDto findByEmail(String email);
 
     UserDto findByUserId(String userId);
 
