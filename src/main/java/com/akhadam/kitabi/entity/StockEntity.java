@@ -6,11 +6,7 @@
 package com.akhadam.kitabi.entity;
 
 import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  *
@@ -26,6 +22,13 @@ public class StockEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @OneToOne
+    @JoinColumn(name = "book_id")
+    private BookEntity book;
+
+    private int quantity;
+
+
     public Long getId() {
         return id;
     }
@@ -33,6 +36,23 @@ public class StockEntity implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public BookEntity getBook() {
+        return book;
+    }
+
+    public void setBook(BookEntity book) {
+        this.book = book;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
 
     @Override
     public int hashCode() {

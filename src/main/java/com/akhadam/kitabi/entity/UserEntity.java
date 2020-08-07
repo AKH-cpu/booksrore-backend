@@ -6,12 +6,7 @@
 package com.akhadam.kitabi.entity;
 
 import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  *
@@ -42,6 +37,9 @@ public class UserEntity implements Serializable {
     private Boolean isAdmin = false;
 
     private String emailVerificationToken;
+
+    @OneToOne(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private CartEntity cart;
 
     public Long getId() {
         return id;
@@ -98,8 +96,22 @@ public class UserEntity implements Serializable {
     public void setEmailVerificationToken(String emailVerificationToken) {
         this.emailVerificationToken = emailVerificationToken;
     }
-    
-    
+
+    public Boolean getAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(Boolean admin) {
+        isAdmin = admin;
+    }
+
+    public CartEntity getCart() {
+        return cart;
+    }
+
+    public void setCart(CartEntity cart) {
+        this.cart = cart;
+    }
 
     @Override
     public int hashCode() {

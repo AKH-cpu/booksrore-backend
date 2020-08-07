@@ -13,6 +13,6 @@ public class WebConfig implements WebMvcConfigurer {
         registry
                 .addMapping("/**")
                 .allowedMethods("*")
-                .allowedOrigins("http://localhost:4200");
+                .allowedOrigins("http://localhost:4200","https://kitabi-app.herokuapp.com");
     }
 }

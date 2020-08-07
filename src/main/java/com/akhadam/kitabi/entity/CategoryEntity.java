@@ -6,11 +6,8 @@
 package com.akhadam.kitabi.entity;
 
 import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import java.util.List;
+import javax.persistence.*;
 
 /**
  *
@@ -26,12 +23,33 @@ public class CategoryEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    private String name;
+
+    @OneToMany(mappedBy = "category")
+    private List<SubCategoryEntity> subCategories;
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<SubCategoryEntity> getSubCategories() {
+        return subCategories;
+    }
+
+    public void setSubCategories(List<SubCategoryEntity> subCategories) {
+        this.subCategories = subCategories;
     }
 
     @Override

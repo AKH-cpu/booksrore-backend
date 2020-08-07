@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
  * @author AKH
  */
 
-@Service
+
 public interface UserService extends UserDetailsService {
     
     UserDto createUser(UserDto userDto);

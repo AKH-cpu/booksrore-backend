@@ -6,14 +6,10 @@
 package com.akhadam.kitabi.entity;
 
 import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import java.util.List;
+import javax.persistence.*;
 
 /**
- *
  * @author AKH
  */
 
@@ -26,12 +22,34 @@ public class WishlistEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    private String wishlistId;
+
+    @OneToMany(mappedBy = "wishlist", cascade = CascadeType.ALL)
+    private List<WishlistItemsEntity> wishlistItems;
+
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getWishlistId() {
+        return wishlistId;
+    }
+
+    public void setWishlistId(String wishlistId) {
+        this.wishlistId = wishlistId;
+    }
+
+    public List<WishlistItemsEntity> getWishlistItems() {
+        return wishlistItems;
+    }
+
+    public void setWishlistItems(List<WishlistItemsEntity> wishlistItems) {
+        this.wishlistItems = wishlistItems;
     }
 
     @Override
@@ -58,5 +76,5 @@ public class WishlistEntity implements Serializable {
     public String toString() {
         return "com.akhadam.kitabi.entity.WishlistEntity[ id=" + id + " ]";
     }
-    
+
 }

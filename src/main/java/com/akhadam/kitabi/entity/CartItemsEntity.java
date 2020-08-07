@@ -5,12 +5,9 @@
  */
 package com.akhadam.kitabi.entity;
 
+import java.awt.image.ImageProducer;
 import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  *
@@ -25,6 +22,50 @@ public class CartItemsEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    private String cartItemId;
+
+    private int quantity;
+
+    @ManyToOne
+    @JoinColumn(name = "book_id")
+    private BookEntity book;
+
+    @ManyToOne
+    @JoinColumn(name = "cart_id")
+    private CartEntity cart;
+
+    public String getCartItemId() {
+        return cartItemId;
+    }
+
+    public void setCartItemId(String cartItemId) {
+        this.cartItemId = cartItemId;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public BookEntity getBook() {
+        return book;
+    }
+
+    public void setBook(BookEntity book) {
+        this.book = book;
+    }
+
+    public CartEntity getCart() {
+        return cart;
+    }
+
+    public void setCart(CartEntity cart) {
+        this.cart = cart;
+    }
 
     public Long getId() {
         return id;

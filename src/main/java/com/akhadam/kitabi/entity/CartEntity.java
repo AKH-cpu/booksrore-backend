@@ -6,11 +6,9 @@
 package com.akhadam.kitabi.entity;
 
 import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import java.util.Date;
+import java.util.List;
+import javax.persistence.*;
 
 /**
  *
@@ -26,12 +24,65 @@ public class CartEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    private String cartId;
+
+    private Date date;
+
+    private Double total;
+
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
+
+    @OneToMany(mappedBy = "cart",cascade = CascadeType.ALL)
+    private List<CartItemsEntity> cartItems;
+
+    public List<CartItemsEntity> getCartItems() {
+        return cartItems;
+    }
+
+    public void setCartItems(List<CartItemsEntity> cartItems) {
+        this.cartItems = cartItems;
+    }
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getCartId() {
+        return cartId;
+    }
+
+    public void setCartId(String cartId) {
+        this.cartId = cartId;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public Double getTotal() {
+        return total;
+    }
+
+    public void setTotal(Double total) {
+        this.total = total;
+    }
+
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public void setUser(UserEntity user) {
+        this.user = user;
     }
 
     @Override
