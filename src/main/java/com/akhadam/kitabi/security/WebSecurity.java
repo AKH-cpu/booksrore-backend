@@ -32,10 +32,10 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .cors().and() // Enable cors => la possibilté de connecter l'app avec une front app (Angular ..)
-                .csrf().disable() // Disable csrf : formulaire token on pas de formulaire dans notre app
+                .cors().and()
+                .csrf().disable()
                 .authorizeRequests()
-                .antMatchers(SecurityConstants.SIGN_UP_URL,"/languages") // Autoriser les requetes montionnées
+                .antMatchers(SecurityConstants.SIGN_UP_URL, "/languages", "/authors")
                 .permitAll()
                 .anyRequest().authenticated()  // Pour Les autres requetes il faut s'authentifier
                 .and()
@@ -57,7 +57,6 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
     }
-
 
 
 }
