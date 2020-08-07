@@ -35,7 +35,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .cors().and() // Enable cors => la possibilté de connecter l'app avec une front app (Angular ..)
                 .csrf().disable() // Disable csrf : formulaire token on pas de formulaire dans notre app
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST, SecurityConstants.SIGN_UP_URL) // Autoriser les requetes montionnées
+                .antMatchers(SecurityConstants.SIGN_UP_URL,"/languages") // Autoriser les requetes montionnées
                 .permitAll()
                 .anyRequest().authenticated()  // Pour Les autres requetes il faut s'authentifier
                 .and()

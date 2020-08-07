@@ -12,18 +12,18 @@ import javax.validation.constraints.*;
  */
 public class UserRequest {
 
-    @NotBlank(message = "Le nom ne doit pas être null")
-    @Size(min = 3, message = "Le nom doit contenir au moins 3 caracteres")
+    @NotBlank(message = "name is required")
+    @Size(min = 3, message = "name must be at least 3 characters ")
     private String name;
 
-    @NotNull(message = "L email ne doit pas être null")
-    @Email(message = "Le format de l email est invalide")
+    @NotNull(message = "email is required")
+    @Email(message = "email invalid")
     private String email;
 
-    @NotNull(message = "Le mot de passe ne doit pas être null")
-    @Size(min = 8, message = "le mot de passe doit dépasser 6 carcteeres")
+    @NotNull(message = "password is required")
+    @Size(min = 8, message = "password must be at least characters ")
     @Pattern(regexp = "(?=^.{8,}$)((?=.*\\d)|(?=.*\\W+))(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$",
-            message = "Le mot de passe doit avoir des lettres en minuscule et majuscule, des numéros ")
+            message = " password must contain uppercase and lowercase letters and numbers ")
     private String password;
 
     private Boolean isAdmin = false;

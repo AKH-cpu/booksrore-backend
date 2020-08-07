@@ -1,6 +1,8 @@
 package com.akhadam.kitabi.ws.controller;
 
 import com.akhadam.kitabi.dto.UserDto;
+import com.akhadam.kitabi.exception.UserException;
+import com.akhadam.kitabi.exception.responses.ErrorMessages;
 import com.akhadam.kitabi.requests.UserRequest;
 import com.akhadam.kitabi.responses.UserResponse;
 import com.akhadam.kitabi.service.UserService;
@@ -26,18 +28,16 @@ public class UserController {
 
     ModelMapper modelMapper = new ModelMapper();
 
-    // La possibilté d'envoyer des données XML ou JSON et recevoir des données XML ou JSON
     @PostMapping(consumes = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<UserResponse> createUser(@RequestBody @Valid UserRequest userRequest) throws Exception {
-        ;
+        if (userRequest.getName().isEmpty())
+            throw new UserException(ErrorMessages.MISSING_REQUIRED_FIELD.getErrorMessage());
+
         ModelMapper modelMapper = new ModelMapper();
         UserDto userDto = modelMapper.map(userRequest, UserDto.class);
-
         UserDto createUser = userService.createUser(userDto);
-
         UserResponse userResponse = modelMapper.map(createUser, UserResponse.class);
-
         return new ResponseEntity<UserResponse>(userResponse, HttpStatus.CREATED);
 
 
@@ -82,19 +82,16 @@ public class UserController {
 
         List<UserResponse> usersResponse = new ArrayList<>();
         List<UserDto> users = userService.findByName(page, limit, name);
-
         for (UserDto userDto : users) {
             UserResponse userResponse = modelMapper.map(userDto, UserResponse.class);
             usersResponse.add(userResponse);
         }
-
         return usersResponse;
     }
 
     @DeleteMapping("/{userId}")
     public ResponseEntity<Object> delete(@PathVariable String userId) {
         userService.delete(userId);
-        // Dans la suppression le réponse est 204 => No content
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
