@@ -35,7 +35,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .cors().and()
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers(SecurityConstants.SIGN_UP_URL, "/languages", "/authors/**")
+                .antMatchers(SecurityConstants.SIGN_UP_URL, "/languages", "/authors/**","/categories/**")
                 .permitAll()
                 .anyRequest().authenticated()  // Pour Les autres requetes il faut s'authentifier
                 .and()
