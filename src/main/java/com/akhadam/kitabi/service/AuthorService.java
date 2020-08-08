@@ -10,7 +10,7 @@ public interface AuthorService {
 
     AuthorDto save(AuthorDto author);
 
-    AuthorEntity update(AuthorDto author);
+    AuthorDto update(String authorId,AuthorDto author);
 
     void delete(String authorId);
 

@@ -32,9 +32,7 @@ public class AuthorController {
             throw new UserException(ErrorMessages.MISSING_REQUIRED_FIELD.getErrorMessage());
 
         AuthorDto authorDto = modelMapper.map(authorRequest, AuthorDto.class);
-
         AuthorDto savedAuthor = authorService.save(authorDto);
-
         AuthorResponse authorResponse = modelMapper.map(savedAuthor, AuthorResponse.class);
 
         return new ResponseEntity<AuthorResponse>(authorResponse, HttpStatus.CREATED);
@@ -45,7 +43,6 @@ public class AuthorController {
                                                         @RequestParam(value = "limit", defaultValue = "15") int limit) {
 
         List<AuthorResponse> authorResponses = new ArrayList<AuthorResponse>();
-
         List<AuthorDto> authorDtos = authorService.findAll(page, limit);
         for (AuthorDto authorDto : authorDtos) {
             AuthorResponse authorResponse = modelMapper.map(authorDto, AuthorResponse.class);
@@ -54,4 +51,21 @@ public class AuthorController {
 
         return new ResponseEntity<List<AuthorResponse>>(authorResponses, HttpStatus.OK);
     }
+
+    @PutMapping("/{authorId}")
+    public ResponseEntity<AuthorResponse> update(@PathVariable String authorId, @RequestBody AuthorRequest authorRequest) {
+
+        AuthorDto authorDto = modelMapper.map(authorRequest, AuthorDto.class);
+        AuthorDto authorDtoUpdated = authorService.update(authorId, authorDto);
+        AuthorResponse authorResponse = modelMapper.map(authorDtoUpdated, AuthorResponse.class);
+
+        return new ResponseEntity<AuthorResponse>(authorResponse, HttpStatus.ACCEPTED);
+    }
+
+    @DeleteMapping("/{authorId}")
+    public ResponseEntity<Object> delete(@PathVariable String authorId) {
+        authorService.delete(authorId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
 }
