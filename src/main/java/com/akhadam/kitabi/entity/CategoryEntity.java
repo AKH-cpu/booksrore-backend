@@ -5,6 +5,8 @@
  */
 package com.akhadam.kitabi.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.*;
@@ -25,7 +27,8 @@ public class CategoryEntity implements Serializable {
 
     private String name;
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<SubCategoryEntity> subCategories;
 
     public Long getId() {
