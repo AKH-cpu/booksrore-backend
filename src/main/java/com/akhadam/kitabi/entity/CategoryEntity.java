@@ -27,6 +27,8 @@ public class CategoryEntity implements Serializable {
 
     private String name;
 
+    private String reference;
+
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<SubCategoryEntity> subCategories;
@@ -53,6 +55,14 @@ public class CategoryEntity implements Serializable {
 
     public void setSubCategories(List<SubCategoryEntity> subCategories) {
         this.subCategories = subCategories;
+    }
+
+    public String getReference() {
+        return reference;
+    }
+
+    public void setReference(String reference) {
+        this.reference = reference;
     }
 
     @Override

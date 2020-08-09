@@ -6,7 +6,6 @@ public class SubCategoryResponse {
 
     String name;
 
-    CategoryEntity category;
 
     public String getName() {
         return name;
@@ -14,13 +13,5 @@ public class SubCategoryResponse {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public CategoryEntity getCategory() {
-        return category;
-    }
-
-    public void setCategory(CategoryEntity category) {
-        this.category = category;
     }
 }

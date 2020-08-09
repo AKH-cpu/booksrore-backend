@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -31,7 +32,22 @@ public class SubCategoryController {
     }
 
     @GetMapping
-    public List<SubCategoryEntity> findAll() {
-        return subCategoryService.findAll();
+    public ResponseEntity<List<SubCategoryResponse>> findAll() {
+
+        List<SubCategoryResponse> subCategoryResponses = new ArrayList<>();
+
+        List<SubCategoryEntity> subCategoryEntities = subCategoryService.findAll();
+
+        for (SubCategoryEntity subCategoryEntity : subCategoryEntities) {
+            SubCategoryResponse subCategoryResponse = modelMapper.map(subCategoryEntity, SubCategoryResponse.class);
+            subCategoryResponses.add(subCategoryResponse);
+        }
+
+        return new ResponseEntity<List<SubCategoryResponse>>(subCategoryResponses, HttpStatus.OK);
+    }
+
+    @GetMapping("/{reference}")
+    public List<SubCategoryEntity> findByCategoryReference(@PathVariable String reference) {
+        return subCategoryService.findByCategoryReference(reference);
     }
 }

@@ -42,4 +42,9 @@ public class SubCategoryServiceImpl implements SubCategoryService {
         List<SubCategoryEntity> subCategories = subCategoryRepository.findAll();
         return subCategories;
     }
+
+    @Override
+    public List<SubCategoryEntity> findByCategoryReference(String reference) {
+        return subCategoryRepository.findByCategoryReference(reference);
+    }
 }
