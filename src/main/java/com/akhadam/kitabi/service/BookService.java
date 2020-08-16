@@ -7,8 +7,7 @@ import java.util.List;
 
 public interface BookService {
 
- //   BookDto save(BookDto book, StockDto stock);
     BookDto save(BookDto book);
 
-    List<List<BookDto>> findAll();
+    List<BookDto> findAll(int page, int limit);
 }

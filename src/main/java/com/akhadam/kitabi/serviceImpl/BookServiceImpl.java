@@ -8,8 +8,12 @@ import com.akhadam.kitabi.service.*;
 import com.akhadam.kitabi.shared.Utils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,10 +36,10 @@ public class BookServiceImpl implements BookService {
     @Autowired
     Utils utils;
 
+    ModelMapper modelMapper = new ModelMapper();
+
     @Override
     public BookDto save(BookDto bookDto) {
-
-        ModelMapper modelMapper = new ModelMapper();
 
         BookEntity foundedBook = bookRepository.findByIsbn(bookDto.getIsbn());
 
@@ -67,7 +71,20 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<List<BookDto>> findAll() {
-        return null;
+    public List<BookDto> findAll(int page, int limit) {
+        if (page > 0) page -= 1;
+
+        List<BookDto> bookDtoList = new ArrayList<>();
+
+        Pageable pageRequest = PageRequest.of(page, limit);
+        Page<BookEntity> bookEntityPage = bookRepository.findAll(pageRequest);
+        List<BookEntity> bookEntityList = bookEntityPage.getContent();
+
+        for (BookEntity bookEntity : bookEntityList) {
+            BookDto bookDto = modelMapper.map(bookEntity, BookDto.class);
+            bookDtoList.add(bookDto);
+        }
+
+        return bookDtoList;
     }
 }

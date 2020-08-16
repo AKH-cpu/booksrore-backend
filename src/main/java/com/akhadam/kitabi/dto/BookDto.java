@@ -20,7 +20,6 @@ public class BookDto implements Serializable {
     private LanguageDto language;
 
 
-
     public Long getId() {
         return id;
     }

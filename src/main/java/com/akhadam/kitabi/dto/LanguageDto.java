@@ -7,6 +7,7 @@ import java.io.Serializable;
 public class LanguageDto implements Serializable {
 
     private static final long serialVersionUID = -6616303185039142155L;
+
     private Long id;
     private String name;
 
@@ -26,13 +27,4 @@ public class LanguageDto implements Serializable {
         this.name = name;
     }
 
-  /*  public List<BookEntity> getBooks() {
-        return books;
-    }
-
-    public void setBooks(List<BookEntity> books) {
-        this.books = books;
-    }
-
-   */
 }

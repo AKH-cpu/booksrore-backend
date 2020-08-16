@@ -6,6 +6,9 @@
 package com.akhadam.kitabi.entity;
 
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
 import java.io.Serializable;
 import javax.persistence.*;
 
@@ -43,6 +46,7 @@ public class BookEntity implements Serializable {
     private int sales = 0;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @NotFound(action = NotFoundAction.IGNORE)
     @JoinColumn(name = "sub_category_id")
     private SubCategoryEntity subCategory;
 
@@ -53,9 +57,6 @@ public class BookEntity implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "language_id")
     private LanguageEntity language;
-
-    // @OneToOne(mappedBy = "book", cascade = CascadeType.ALL)
-    //  private StockEntity stock;
 
 
     public Long getId() {

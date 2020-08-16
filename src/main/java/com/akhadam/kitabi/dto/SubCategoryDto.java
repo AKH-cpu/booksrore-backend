@@ -8,8 +8,17 @@ public class SubCategoryDto implements Serializable {
 
     private static final long serialVersionUID = 4175021379084033461L;
 
-    String name;
-    CategoryEntity category;
+    private Long id;
+    private String name;
+    private CategoryEntity category;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
