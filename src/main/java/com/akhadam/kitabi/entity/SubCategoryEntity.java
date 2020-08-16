@@ -25,10 +25,9 @@ public class SubCategoryEntity implements Serializable {
     @Column(nullable = false)
     private String name;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "category_id")
     private CategoryEntity category;
-
 
 
     public Long getId() {
@@ -79,5 +78,7 @@ public class SubCategoryEntity implements Serializable {
     public String toString() {
         return "com.akhadam.kitabi.entity.SubCategoryEntity[ id=" + id + " ]";
     }
+
+
     
 }

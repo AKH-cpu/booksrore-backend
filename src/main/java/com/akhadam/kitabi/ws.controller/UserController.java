@@ -22,7 +22,6 @@ import java.util.List;
 @RequestMapping("/users")
 public class UserController {
 
-
     @Autowired
     UserService userService;
 
@@ -31,6 +30,7 @@ public class UserController {
     @PostMapping(consumes = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<UserResponse> createUser(@RequestBody @Valid UserRequest userRequest) throws Exception {
+
         if (userRequest.getName().isEmpty())
             throw new UserException(ErrorMessages.MISSING_REQUIRED_FIELD.getErrorMessage());
 
@@ -38,15 +38,16 @@ public class UserController {
         UserDto userDto = modelMapper.map(userRequest, UserDto.class);
         UserDto createUser = userService.createUser(userDto);
         UserResponse userResponse = modelMapper.map(createUser, UserResponse.class);
+
         return new ResponseEntity<UserResponse>(userResponse, HttpStatus.CREATED);
-
-
     }
 
     @GetMapping(value = "/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserResponse> findByUserId(@PathVariable String userId) {
+
         UserDto userDto = userService.findByUserId(userId);
         UserResponse userResponse = modelMapper.map(userDto, UserResponse.class);
+
         return new ResponseEntity<UserResponse>(userResponse, HttpStatus.OK);
     }
 

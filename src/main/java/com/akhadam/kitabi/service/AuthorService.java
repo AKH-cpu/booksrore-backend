@@ -10,11 +10,13 @@ public interface AuthorService {
 
     AuthorDto save(AuthorDto author);
 
+    AuthorEntity save(AuthorEntity authorEntity);
+
     AuthorDto update(String authorId,AuthorDto author);
 
     void delete(String authorId);
 
-    List<AuthorDto> findByName(String name);
+    AuthorDto findByName(String name);
 
     List<AuthorDto> findAll(int page, int limit);
 }

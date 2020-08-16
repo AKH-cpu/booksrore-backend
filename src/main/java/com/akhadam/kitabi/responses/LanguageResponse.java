@@ -1,8 +1,6 @@
 package com.akhadam.kitabi.responses;
 
 
-
-
 public class LanguageResponse {
 
 

@@ -26,7 +26,8 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     // Manipuler l'ensemble des exception sauf userException
-    @ExceptionHandler(value = Exception.class)
+
+ //  @ExceptionHandler(value = Exception.class)
     public ResponseEntity<Object> handleOtherExceptions(Exception exception, WebRequest webRequest) {
         ErrorMessage errorMessage = new ErrorMessage(new Date(), exception.getMessage());
         return new ResponseEntity<>(errorMessage, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);

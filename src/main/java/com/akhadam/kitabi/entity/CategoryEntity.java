@@ -30,7 +30,7 @@ public class CategoryEntity implements Serializable {
     private String reference;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+   // @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<SubCategoryEntity> subCategories;
 
     public Long getId() {
@@ -89,5 +89,7 @@ public class CategoryEntity implements Serializable {
     public String toString() {
         return "com.akhadam.kitabi.entity.CategoryEntity[ id=" + id + " ]";
     }
+
+
     
 }

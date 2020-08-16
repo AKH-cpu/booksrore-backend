@@ -24,9 +24,11 @@ public class LanguageController {
     @Autowired
     LanguageService languageService;
 
+    ModelMapper modelMapper = new ModelMapper();
 
-    @PostMapping(consumes =  MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<LanguageResponse> save(@RequestBody  LanguageRequest languageRequest) {
+
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<LanguageResponse> save(@RequestBody LanguageRequest languageRequest) {
         ModelMapper modelMapper = new ModelMapper();
         LanguageDto languageDto = modelMapper.map(languageRequest, LanguageDto.class);
         LanguageDto language = languageService.save(languageDto);
@@ -37,7 +39,7 @@ public class LanguageController {
     @GetMapping
     public ResponseEntity<List<LanguageResponse>> findAll() {
 
-        ModelMapper modelMapper = new ModelMapper();
+
         List<LanguageResponse> languageResponses = new ArrayList<>();
 
         List<LanguageDto> languageDtos = languageService.findAll();
@@ -53,8 +55,11 @@ public class LanguageController {
         return languageService.update(languageDto);
     }
 
-    public LanguageDto findByName(String name) {
-        return languageService.findByName(name);
+    @GetMapping("/{name}")
+    public ResponseEntity<LanguageResponse> findByName(@PathVariable String name) {
+        LanguageDto languageDto = languageService.findByName(name);
+        LanguageResponse languageResponse = modelMapper.map(languageDto, LanguageResponse.class);
+        return new ResponseEntity(languageResponse, HttpStatus.OK);
     }
 
     public void delete(String name) {

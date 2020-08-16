@@ -5,9 +5,10 @@
  */
 package com.akhadam.kitabi.entity;
 
+
 import java.io.Serializable;
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+
 
 /**
  * @author AKH
@@ -37,23 +38,24 @@ public class BookEntity implements Serializable {
     @Column(nullable = false)
     private Double price;
 
-    private int sales;
+    private int quantity;
 
-    @ManyToOne
+    private int sales = 0;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sub_category_id")
     private SubCategoryEntity subCategory;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id")
     private AuthorEntity author;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "language_id")
     private LanguageEntity language;
 
-    @OneToOne(mappedBy = "book",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private StockEntity stock;
-
+    // @OneToOne(mappedBy = "book", cascade = CascadeType.ALL)
+    //  private StockEntity stock;
 
 
     public Long getId() {
@@ -144,12 +146,12 @@ public class BookEntity implements Serializable {
         this.language = language;
     }
 
-    public StockEntity getStock() {
-        return stock;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setStock(StockEntity stock) {
-        this.stock = stock;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     @Override

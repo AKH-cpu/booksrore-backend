@@ -5,10 +5,10 @@ import com.akhadam.kitabi.entity.CategoryEntity;
 import java.io.Serializable;
 
 public class SubCategoryDto implements Serializable {
+
     private static final long serialVersionUID = 4175021379084033461L;
 
     String name;
-
     CategoryEntity category;
 
     public String getName() {

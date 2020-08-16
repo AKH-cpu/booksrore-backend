@@ -9,6 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class KitabiApplication {
 
     public static void main(String[] args) {
+
         SpringApplication.run(KitabiApplication.class, args);
     }
 

@@ -18,6 +18,7 @@ public class LanguageServiceImpl implements LanguageService {
     @Autowired
     LanguageRepository languageRepository;
 
+    ModelMapper modelMapper = new ModelMapper();
 
 
     @Override
@@ -34,7 +35,7 @@ public class LanguageServiceImpl implements LanguageService {
 
     @Override
     public List<LanguageDto> findAll() {
-        ModelMapper modelMapper = new ModelMapper();
+
         List<LanguageDto> languageDtoList = new ArrayList<>();
         List<LanguageEntity> languages = languageRepository.findAll();
 
@@ -53,7 +54,9 @@ public class LanguageServiceImpl implements LanguageService {
 
     @Override
     public LanguageDto findByName(String name) {
-        return null;
+        LanguageEntity foundedLanguage = languageRepository.findByName(name);
+        if (foundedLanguage == null) throw new RuntimeException("Record not found");
+        return modelMapper.map(foundedLanguage, LanguageDto.class);
     }
 
     @Override

@@ -15,4 +15,6 @@ public class WishlistItemsEntity implements Serializable {
     @ManyToOne
     @JoinColumn(name = "wishlist")
     private WishlistEntity wishlist;
+
+  
 }

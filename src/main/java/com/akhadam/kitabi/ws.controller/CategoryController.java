@@ -2,6 +2,7 @@ package com.akhadam.kitabi.ws.controller;
 
 
 import com.akhadam.kitabi.entity.CategoryEntity;
+import com.akhadam.kitabi.entity.SubCategoryEntity;
 import com.akhadam.kitabi.responses.CategoryResponse;
 import com.akhadam.kitabi.service.CategoryService;
 import org.modelmapper.ModelMapper;
@@ -22,10 +23,13 @@ public class CategoryController {
 
     ModelMapper modelMapper = new ModelMapper();
 
-    @PostMapping
-    public CategoryEntity save(@RequestBody CategoryEntity category) {
-        return categoryService.save(category);
-    }
+       @PostMapping
+        public CategoryEntity save(@RequestBody CategoryEntity category) {
+            return categoryService.save(category);
+        }
+
+
+
 
     @GetMapping
     public ResponseEntity<List<CategoryResponse>> findAll() {
@@ -38,5 +42,22 @@ public class CategoryController {
             categoryResponses.add(categoryResponse);
         }
         return new ResponseEntity<List<CategoryResponse>>(categoryResponses, HttpStatus.OK);
+    }
+
+   /* @PostMapping("/")
+    public int save(@RequestBody CategoryEntity category) {
+        //int categoryEntity = categoryService.save(category, category.getSubCategories());
+
+        //  CategoryResponse categoryResponse = modelMapper.map(categoryEntity, CategoryResponse.class);
+        // return new ResponseEntity<>(categoryResponse, HttpStatus.CREATED);
+
+        return categoryService.save(category, category.getSubCategories());
+    }
+
+    */
+
+    @GetMapping("/ref/{reference}")
+    public CategoryEntity findByReference(@PathVariable String reference) {
+        return categoryService.findByReference(reference);
     }
 }

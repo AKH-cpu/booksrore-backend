@@ -1,6 +1,7 @@
 package com.akhadam.kitabi.ws.controller;
 
 
+import com.akhadam.kitabi.dto.SubCategoryDto;
 import com.akhadam.kitabi.entity.CategoryEntity;
 import com.akhadam.kitabi.entity.SubCategoryEntity;
 import com.akhadam.kitabi.responses.SubCategoryResponse;
@@ -43,11 +44,18 @@ public class SubCategoryController {
             subCategoryResponses.add(subCategoryResponse);
         }
 
-        return new ResponseEntity<List<SubCategoryResponse>>(subCategoryResponses, HttpStatus.OK);
+        return new ResponseEntity<>(subCategoryResponses, HttpStatus.OK);
     }
 
     @GetMapping("/{reference}")
     public List<SubCategoryEntity> findByCategoryReference(@PathVariable String reference) {
         return subCategoryService.findByCategoryReference(reference);
+    }
+
+    @GetMapping("/{name}")
+    public ResponseEntity<SubCategoryResponse> findByName(@PathVariable String name) {
+        SubCategoryDto subCategoryDto = subCategoryService.findByName(name);
+        SubCategoryResponse subCategoryResponse = modelMapper.map(subCategoryDto,SubCategoryResponse.class);
+        return  new ResponseEntity<>(subCategoryResponse,HttpStatus.OK);
     }
 }

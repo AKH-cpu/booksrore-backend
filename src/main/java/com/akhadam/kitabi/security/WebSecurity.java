@@ -37,7 +37,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(
                         SecurityConstants.SIGN_UP_URL,
-                        "/languages", "/authors/**", "/categories/**","/subcategories/**"
+                        "/languages/**", "/authors/**", "/categories/**","/subcategories/**","/books/**",
+                        "/stocks/**"
                 )
                 .permitAll()
                 .anyRequest().authenticated()  // Pour Les autres requetes il faut s'authentifier

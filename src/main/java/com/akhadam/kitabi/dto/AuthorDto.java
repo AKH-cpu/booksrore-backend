@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 public class AuthorDto implements Serializable {
 
+    private static final long serialVersionUID = 1373806401907518363L;
+
     private Long id;
     private String name;
     private String authorId;

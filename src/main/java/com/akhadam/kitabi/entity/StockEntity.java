@@ -18,13 +18,16 @@ import javax.persistence.*;
 public class StockEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "book_id")
-    private BookEntity book;
+    private String stockId;
+
+  //  @OneToOne
+  //  @JoinColumn(name = "book_id")
+//    private BookEntity book;
 
     private int quantity;
 
@@ -37,13 +40,7 @@ public class StockEntity implements Serializable {
         this.id = id;
     }
 
-    public BookEntity getBook() {
-        return book;
-    }
 
-    public void setBook(BookEntity book) {
-        this.book = book;
-    }
 
     public int getQuantity() {
         return quantity;
@@ -53,6 +50,13 @@ public class StockEntity implements Serializable {
         this.quantity = quantity;
     }
 
+    public String getStockId() {
+        return stockId;
+    }
+
+    public void setStockId(String stockId) {
+        this.stockId = stockId;
+    }
 
     @Override
     public int hashCode() {

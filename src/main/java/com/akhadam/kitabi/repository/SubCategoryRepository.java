@@ -13,4 +13,6 @@ public interface SubCategoryRepository extends JpaRepository<SubCategoryEntity, 
     SubCategoryEntity findByName(String name);
 
     List<SubCategoryEntity> findByCategoryReference(String reference);
+
+
 }

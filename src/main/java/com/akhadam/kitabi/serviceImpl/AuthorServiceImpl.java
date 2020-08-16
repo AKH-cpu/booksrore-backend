@@ -17,12 +17,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Repository
+@Service
 public class AuthorServiceImpl implements AuthorService {
 
     @Autowired
@@ -38,7 +39,6 @@ public class AuthorServiceImpl implements AuthorService {
     public AuthorDto save(AuthorDto author) {
         AuthorEntity foundedAuthor = authorRepository.findByAuthorId(author.getAuthorId());
         if (foundedAuthor != null) throw new RuntimeException("User Already exists");
-
         AuthorEntity authorEntity = modelMapper.map(author, AuthorEntity.class);
         authorEntity.setAuthorId(utils.generateId(30));
         AuthorEntity savedAuthor = authorRepository.save(authorEntity);
@@ -62,8 +62,9 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public List<AuthorDto> findByName(String name) {
-        return null;
+    public AuthorDto findByName(String name) {
+        AuthorEntity authorEntity= authorRepository.findByName(name);
+       return modelMapper.map(authorEntity,AuthorDto.class);
     }
 
 
@@ -83,5 +84,10 @@ public class AuthorServiceImpl implements AuthorService {
         }
 
         return authorDtoList;
+    }
+
+    @Override
+    public AuthorEntity save(AuthorEntity authorEntity) {
+        return authorRepository.save(authorEntity);
     }
 }
