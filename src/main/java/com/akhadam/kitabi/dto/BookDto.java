@@ -19,7 +19,6 @@ public class BookDto implements Serializable {
     private AuthorDto author;
     private LanguageDto language;
 
-  //  private StockDto stock;
 
 
     public Long getId() {
