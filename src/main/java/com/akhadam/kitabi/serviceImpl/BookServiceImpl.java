@@ -28,8 +28,6 @@ public class BookServiceImpl implements BookService {
     @Autowired
     SubCategoryService subCategoryService;
 
-    @Autowired
-    StockService stockService;
 
     @Autowired
     Utils utils;
