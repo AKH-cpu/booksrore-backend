@@ -44,4 +44,40 @@ public class BookController {
         }
         return new ResponseEntity<>(bookResponses, HttpStatus.OK);
     }
+
+    @GetMapping("/bestsellers")
+    public ResponseEntity<List<BookResponse>> findBySalesGreaterThanFive() {
+        List<BookResponse> bookResponses = new ArrayList<>();
+        List<BookDto> bookDtoList = bookService.findBySalesGreaterThanFive();
+        for (BookDto bookDto : bookDtoList) {
+            BookResponse bookResponse = modelMapper.map(bookDto, BookResponse.class);
+            bookResponses.add(bookResponse);
+        }
+        return new ResponseEntity<>(bookResponses, HttpStatus.OK);
+
+    }
+
+
+    @PutMapping("/update/{isbn}")
+    public ResponseEntity<BookResponse> update(@PathVariable String isbn, @RequestBody BookRequest bookRequest) {
+
+        BookDto bookDto = modelMapper.map(bookRequest, BookDto.class);
+
+        BookDto updatedBook = bookService.update(isbn, bookDto);
+
+        BookResponse bookResponse = modelMapper.map(updatedBook, BookResponse.class);
+
+        return new ResponseEntity<>(bookResponse, HttpStatus.ACCEPTED);
+    }
+
+    @GetMapping("/{isbn}")
+    public ResponseEntity<BookResponse> findByIsbn(@PathVariable String isbn) {
+
+        BookDto bookDto = bookService.findByIsbn(isbn);
+
+        BookResponse bookResponse = modelMapper.map(bookDto, BookResponse.class);
+
+        return new ResponseEntity<>(bookResponse, HttpStatus.OK);
+    }
+
 }

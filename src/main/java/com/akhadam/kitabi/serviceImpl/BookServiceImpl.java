@@ -2,6 +2,8 @@ package com.akhadam.kitabi.serviceImpl;
 
 import com.akhadam.kitabi.dto.*;
 import com.akhadam.kitabi.entity.BookEntity;
+import com.akhadam.kitabi.exception.BookException;
+import com.akhadam.kitabi.exception.responses.ErrorMessage;
 import com.akhadam.kitabi.exception.responses.ErrorMessages;
 import com.akhadam.kitabi.repository.BookRepository;
 import com.akhadam.kitabi.service.*;
@@ -86,5 +88,49 @@ public class BookServiceImpl implements BookService {
         }
 
         return bookDtoList;
+    }
+
+    @Override
+    public List<BookDto> findBySalesGreaterThanFive() {
+
+        List<BookDto> bookDtoList = new ArrayList<>();
+
+        List<BookEntity> bookEntities = bookRepository.findBySalesGreaterThanFive();
+
+        for (BookEntity bookEntity : bookEntities) {
+            BookDto bookDto = modelMapper.map(bookEntity, BookDto.class);
+            bookDtoList.add(bookDto);
+        }
+
+
+        return bookDtoList;
+    }
+
+    @Override
+    public BookDto update(String isbn, BookDto book) {
+
+        BookEntity foundedBook = bookRepository.findByIsbn(isbn);
+        if (foundedBook == null) throw new BookException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
+
+        BookDto bookDto = modelMapper.map(foundedBook, BookDto.class);
+        bookDto.setTitle(book.getTitle());
+        bookDto.setQuantity(book.getQuantity());
+        bookDto.setDescription(book.getDescription());
+        bookDto.setImage(book.getImage());
+
+        BookEntity bookEntity = modelMapper.map(bookDto, BookEntity.class);
+        BookEntity updatedBook = bookRepository.save(bookEntity);
+        return modelMapper.map(updatedBook, BookDto.class);
+    }
+
+    @Override
+    public void delete(String isbn) {
+
+    }
+
+    @Override
+    public BookDto findByIsbn(String isbn) {
+        BookEntity bookEntity = bookRepository.findByIsbn(isbn);
+        return modelMapper.map(bookEntity, BookDto.class);
     }
 }
