@@ -132,7 +132,6 @@ public class UserServiceImpl implements UserService {
         return usersDto;
     }
 
-
     @Override
     public void delete(String userId) {
         UserEntity foundedUser = userRepository.findByUserId(userId);

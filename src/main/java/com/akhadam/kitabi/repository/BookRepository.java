@@ -1,7 +1,6 @@
 package com.akhadam.kitabi.repository;
 
 import com.akhadam.kitabi.entity.BookEntity;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -15,5 +14,11 @@ public interface BookRepository extends JpaRepository<BookEntity, Long> {
 
     @Query(value = "SELECT * FROM books WHERE sales > 5", nativeQuery = true)
     List<BookEntity> findBySalesGreaterThanFive();
+
+    List<BookEntity> findByAuthorName(String name);
+
+    List<BookEntity> findByLanguageName(String name);
+
+    List<BookEntity> findBySubCategoryName(String name);
 
 }

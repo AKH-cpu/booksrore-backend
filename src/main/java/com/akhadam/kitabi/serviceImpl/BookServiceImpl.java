@@ -6,6 +6,7 @@ import com.akhadam.kitabi.exception.BookException;
 import com.akhadam.kitabi.exception.responses.ErrorMessage;
 import com.akhadam.kitabi.exception.responses.ErrorMessages;
 import com.akhadam.kitabi.repository.BookRepository;
+import com.akhadam.kitabi.responses.BookResponse;
 import com.akhadam.kitabi.service.*;
 import com.akhadam.kitabi.shared.Utils;
 import org.modelmapper.ModelMapper;
@@ -132,5 +133,47 @@ public class BookServiceImpl implements BookService {
     public BookDto findByIsbn(String isbn) {
         BookEntity bookEntity = bookRepository.findByIsbn(isbn);
         return modelMapper.map(bookEntity, BookDto.class);
+    }
+
+    @Override
+    public List<BookDto> findByAuthorName(String name) {
+        List<BookDto> bookDtoList = new ArrayList<>();
+
+        List<BookEntity> bookEntityList = bookRepository.findByAuthorName(name);
+
+        for (BookEntity bookEntity : bookEntityList) {
+            BookDto bookDto = modelMapper.map(bookEntity, BookDto.class);
+            bookDtoList.add(bookDto);
+        }
+
+        return bookDtoList;
+    }
+
+    @Override
+    public List<BookDto> findByLanguageName(String name) {
+        List<BookDto> bookDtoList = new ArrayList<>();
+
+        List<BookEntity> bookEntityList = bookRepository.findByLanguageName(name);
+
+        for (BookEntity bookEntity : bookEntityList) {
+            BookDto bookDto = modelMapper.map(bookEntity, BookDto.class);
+            bookDtoList.add(bookDto);
+        }
+
+        return bookDtoList;
+    }
+
+    @Override
+    public List<BookDto> findBySubCategoryName(String name) {
+        List<BookDto> bookDtoList = new ArrayList<>();
+
+        List<BookEntity> bookEntityList = bookRepository.findBySubCategoryName(name);
+
+        for (BookEntity bookEntity : bookEntityList) {
+            BookDto bookDto = modelMapper.map(bookEntity, BookDto.class);
+            bookDtoList.add(bookDto);
+        }
+
+        return bookDtoList;
     }
 }

@@ -19,5 +19,11 @@ public interface BookService {
 
     List<BookDto> findBySalesGreaterThanFive();
 
+    List<BookDto> findByAuthorName(String name);
+
+    List<BookDto> findByLanguageName(String name);
+
+    List<BookDto> findBySubCategoryName(String name);
+
 
 }

@@ -5,7 +5,7 @@
  */
 package com.akhadam.kitabi.repository;
 
-import com.akhadam.kitabi.entity.AuthorEntity;
+
 import com.akhadam.kitabi.entity.UserEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

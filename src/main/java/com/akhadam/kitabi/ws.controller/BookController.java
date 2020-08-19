@@ -80,4 +80,41 @@ public class BookController {
         return new ResponseEntity<>(bookResponse, HttpStatus.OK);
     }
 
+    @GetMapping("/author/{name}")
+    public ResponseEntity<List<BookResponse>> findByAuthorName(@PathVariable String name) {
+
+        List<BookResponse> bookResponses = new ArrayList<>();
+        List<BookDto> bookDtoList = bookService.findByAuthorName(name);
+
+        for (BookDto bookDto : bookDtoList) {
+            BookResponse bookResponse = modelMapper.map(bookDto, BookResponse.class);
+            bookResponses.add(bookResponse);
+        }
+        return new ResponseEntity<>(bookResponses, HttpStatus.OK);
+    }
+
+    @GetMapping("/language/{name}")
+    public ResponseEntity<List<BookResponse>> findByLanguageName(@PathVariable String name) {
+        List<BookResponse> bookResponses = new ArrayList<>();
+        List<BookDto> bookDtoList = bookService.findByLanguageName(name);
+
+        for (BookDto bookDto : bookDtoList) {
+            BookResponse bookResponse = modelMapper.map(bookDto, BookResponse.class);
+            bookResponses.add(bookResponse);
+        }
+        return new ResponseEntity<>(bookResponses, HttpStatus.OK);
+
+    }
+
+    @GetMapping("/subcategory/{name}")
+    public ResponseEntity<List<BookResponse>> findBySubCategoryName(@PathVariable String name) {
+        List<BookResponse> bookResponses = new ArrayList<>();
+        List<BookDto> bookDtoList = bookService.findBySubCategoryName(name);
+
+        for (BookDto bookDto : bookDtoList) {
+            BookResponse bookResponse = modelMapper.map(bookDto, BookResponse.class);
+            bookResponses.add(bookResponse);
+        }
+        return new ResponseEntity<>(bookResponses, HttpStatus.OK);
+    }
 }
